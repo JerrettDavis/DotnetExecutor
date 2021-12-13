@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-DotnetExecutor-212EDE83-8C74-4C95-B827-AF4D95E2B15E</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CliWrap" Version="3.3.3" />
+        <PackageReference Include="Ductus.FluentDocker" Version="2.10.44" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="7.3.0" />
+        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.0" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="7.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\src\Executor.Common\Executor.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Projects\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Projects\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Projects\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Projects\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Projects\feeb1302-b349-47a8-8505-9c040f3e77e6\bin\Debug\net6.0\feeb1302-b349-47a8-8505-9c040f3e77e6.deps.json" />
+      <_ContentIncludedByDefault Remove="Projects\feeb1302-b349-47a8-8505-9c040f3e77e6\bin\Debug\net6.0\feeb1302-b349-47a8-8505-9c040f3e77e6.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Projects\feeb1302-b349-47a8-8505-9c040f3e77e6\obj\feeb1302-b349-47a8-8505-9c040f3e77e6.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Projects\feeb1302-b349-47a8-8505-9c040f3e77e6\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Projects\00e6521e-2895-49f6-b88d-4cb6085c9b64\bin\Debug\net6.0\00e6521e-2895-49f6-b88d-4cb6085c9b64.deps.json" />
+      <_ContentIncludedByDefault Remove="Projects\00e6521e-2895-49f6-b88d-4cb6085c9b64\bin\Debug\net6.0\00e6521e-2895-49f6-b88d-4cb6085c9b64.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Projects\00e6521e-2895-49f6-b88d-4cb6085c9b64\obj\00e6521e-2895-49f6-b88d-4cb6085c9b64.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Projects\00e6521e-2895-49f6-b88d-4cb6085c9b64\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Projects\0a62d77d-027b-499c-bd84-23dd858d0a30\bin\Debug\net6.0\0a62d77d-027b-499c-bd84-23dd858d0a30.deps.json" />
+      <_ContentIncludedByDefault Remove="Projects\0a62d77d-027b-499c-bd84-23dd858d0a30\bin\Debug\net6.0\0a62d77d-027b-499c-bd84-23dd858d0a30.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Projects\0a62d77d-027b-499c-bd84-23dd858d0a30\obj\0a62d77d-027b-499c-bd84-23dd858d0a30.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Projects\0a62d77d-027b-499c-bd84-23dd858d0a30\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Projects\ccda4e1f-f8a0-4728-8b77-b4a2fdccbd4d\bin\Debug\net6.0\ccda4e1f-f8a0-4728-8b77-b4a2fdccbd4d.deps.json" />
+      <_ContentIncludedByDefault Remove="Projects\ccda4e1f-f8a0-4728-8b77-b4a2fdccbd4d\bin\Debug\net6.0\ccda4e1f-f8a0-4728-8b77-b4a2fdccbd4d.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Projects\ccda4e1f-f8a0-4728-8b77-b4a2fdccbd4d\obj\ccda4e1f-f8a0-4728-8b77-b4a2fdccbd4d.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Projects\ccda4e1f-f8a0-4728-8b77-b4a2fdccbd4d\obj\project.assets.json" />
+    </ItemGroup>
+</Project>
