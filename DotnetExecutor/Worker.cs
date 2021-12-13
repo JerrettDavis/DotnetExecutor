@@ -44,7 +44,7 @@ public class Worker : BackgroundService
 // var (output, errors) = await proj.RunProject();
             _dockerController.LogEmitted +=
                 (_,log) => _logger.LogDebug("Log Received {Log}", log);
-            var output = await _dockerController.RunAppInContainer(project);
+            var output = await _dockerController.RunAppInContainer(project, stoppingToken);
 
             await Task.Delay(1000, stoppingToken);
         }

@@ -57,7 +57,8 @@ public class ProjectFacade : IDisposable, IAsyncDisposable
     public static void DeleteDirectory(string target, bool recursive = true)
     {
         var tfilename = Path.GetDirectoryName(target) +
-                           (target.Contains(Path.DirectorySeparatorChar.ToString()) ? Path.DirectorySeparatorChar.ToString() : string.Empty) +
+                           (target.Contains(Path.DirectorySeparatorChar.ToString()) ? 
+                               Path.DirectorySeparatorChar.ToString() : string.Empty) +
                            Path.GetRandomFileName();
         Directory.Move(target, tfilename);
         Directory.Delete(tfilename, recursive);

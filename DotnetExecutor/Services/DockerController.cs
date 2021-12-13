@@ -1,9 +1,12 @@
 using System.Text;
 using Ductus.FluentDocker.Builders;
 using Ductus.FluentDocker.Commands;
+using Ductus.FluentDocker.Common;
 using Ductus.FluentDocker.Extensions;
 using Ductus.FluentDocker.Model.Builders;
 using Ductus.FluentDocker.Services;
+using Ductus.FluentDocker.Services.Extensions;
+using MassTransit.Topology.Observers;
 
 namespace DotnetExecutor.Services;
 
@@ -22,9 +25,11 @@ public class DockerController : IDockerController
         LogEmitted?.Invoke(this, log);
     }
 
-    public Task<string> RunAppInContainer(ProjectFacade project)
+    public Task<string> RunAppInContainer(
+        ProjectFacade project,
+        CancellationToken cancellationToken = default)
     {
-        return Task.Run(() =>
+        return Task.Run(async () =>
         {
             _logger.LogInformation("Setting up container {Id}", project.Id);
             using var container =
@@ -38,31 +43,33 @@ public class DockerController : IDockerController
                     .Build()
                     .Start();
             
-            var hosts = new Hosts().Discover();
-            var docker = hosts.FirstOrDefault(x => x.IsNative) ?? 
-                         hosts.FirstOrDefault(x => x.Name == "default")!;
-            using var logs = docker.Host.Logs(project.Id.ToString());
+            _logger.LogDebug("Reading logs for container {Id}", project.Id);
+            var result = await GetLogs(container, cancellationToken);
+
+            return string.Join(Environment.NewLine, result);
+        }, cancellationToken);
+    }
+
+    public Task<string> GetLogs(IContainerService container, CancellationToken cancellationToken)
+    {
+        return Task.Run(() =>
+        {
             var logBuilder = new StringBuilder();
+            using var logs = container.Logs(true);
             while (!logs.IsFinished)
             {
-                var line = logs.TryRead(5000); // Do a read with timeout
+
+                var line = logs.TryRead(5000);
                 if (null == line)
                     break;
 
-                logBuilder.Append(line);
+                logBuilder.AppendLine(line);
                 OnLogEmitted(line);
             }
-            
-            while (container.GetConfiguration(true).State.ToServiceState() == 
-                   ServiceRunningState.Running)
-            {
-                _logger.LogDebug("Waiting for container {Id} to complete", project.Id);
-                Thread.Sleep(100);
-            }
+                
+            container.Dispose();
 
-            var output = string.Join(Environment.NewLine, logBuilder.ToString());
-
-            return string.Join(Environment.NewLine, output);
-        });
+            return logBuilder.ToString();
+        }, cancellationToken);
     }
 }

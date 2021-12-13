@@ -2,12 +2,11 @@ using DotnetExecutor;
 using DotnetExecutor.Services;
 using MassTransit;
 using Serilog;
-using Serilog.Events;
 
 try
 {
     Log.Logger = new LoggerConfiguration()
-        .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+        .MinimumLevel.Debug()
         .Enrich.FromLogContext()
         .WriteTo.Console()
         .CreateLogger();
