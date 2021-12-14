@@ -1,5 +1,3 @@
-using DotnetExecutor.Models;
-
 namespace Executor.Common.Models;
 
 public record ExecutorInfo

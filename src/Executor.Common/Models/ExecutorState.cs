@@ -1,4 +1,4 @@
-namespace DotnetExecutor.Models;
+namespace Executor.Common.Models;
 
 public enum ExecutorState
 {

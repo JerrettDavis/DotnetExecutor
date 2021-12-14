@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\src\Executor.Common\Executor.Common.csproj" />
+      <ProjectReference Include="..\src\Executor.Infrastructure\Executor.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

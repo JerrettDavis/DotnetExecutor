@@ -1,4 +1,3 @@
-using DotnetExecutor.Models;
 using Executor.Common.Models;
 
 namespace ExecutorWatcher.Hubs;
